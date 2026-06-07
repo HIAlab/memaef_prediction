@@ -1,0 +1,38 @@
+# Ignore everything by default. This repository should only version the
+# development modelling folder plus this ignore policy.
+*
+
+!.gitignore
+!develop_prediction_model/
+!develop_prediction_model/**
+
+# Never version generated Python/Jupyter/cache artefacts.
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+_old/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+logs/
+*.log
+
+# Keep data/model directory structure, but not their contents.
+develop_prediction_model/data/**
+!develop_prediction_model/data/
+!develop_prediction_model/data/**/
+!develop_prediction_model/data/**/.gitkeep
+
+develop_prediction_model/models/**
+!develop_prediction_model/models/
+!develop_prediction_model/models/**/
+!develop_prediction_model/models/**/.gitkeep
+
+# In notebooks, version notebooks only.
+develop_prediction_model/notebooks/**
+!develop_prediction_model/notebooks/
+!develop_prediction_model/notebooks/**/
+!develop_prediction_model/notebooks/**/*.ipynb
+develop_prediction_model/notebooks/**/.ipynb_checkpoints/**
