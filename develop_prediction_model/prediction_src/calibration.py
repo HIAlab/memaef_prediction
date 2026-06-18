@@ -24,6 +24,16 @@ def return_y_true_and_pred(model_dict):
 
 
 def compute_and_save_cutoff(model_dict,cutoff_type):
+    """
+    Compute an optimal cutoff according to the selected cutoff_type and save it in the model.
+
+    Args:
+        model_dict (dict): Dictionary containing model and test data.
+        cutoff_type (str): How to optimize the cutoff, e.g. by Youden Index.
+
+    Returns:
+        dict: Updated dictionary containing predictions and probabilities.
+    """
     y_true, y_prob = return_y_true_and_pred(model_dict)
 
     if cutoff_type.lower() == "fpr":
@@ -46,6 +56,16 @@ def compute_and_save_cutoff(model_dict,cutoff_type):
     return cutoff, metrics_for_cutoff
 
 def update_with_new_cutoff(model_dict,cutoff):
+    """
+    Update a modal a new optimal cutoff.
+
+    Args:
+        model_dict (dict): Dictionary containing model and test data.
+        cutoff (str): How to optimize the cutoff, e.g. by Youden Index.
+
+    Returns:
+        dict: Updated dictionary containing predictions and probabilities.
+    """
     
     cutoff_model_dict=copy.deepcopy(model_dict)
     

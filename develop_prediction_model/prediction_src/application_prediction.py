@@ -20,8 +20,8 @@ from prediction.coeff_func import or_to_coeff
 import os
 from sklearn.base import BaseEstimator, ClassifierMixin
 
-def load_prediction_tables(experiment_name="Vandage_20241023",
-                           path_data="/mnt/c/Users/Juliana/dev/memaef/data",
+def load_prediction_tables(experiment_name,
+                           path_data,
                            questionnaire_numbers=["14_t0b"]):
     """
     Load prediction tables and corresponding question translation data.
@@ -152,6 +152,16 @@ def select_and_filter_df_for_prediction(df_t0b, q_dict, author_table, author):
 
 
 def get_translation_map_for_beschwerde_columns(path_data, questionnaire_numbers):
+    """
+    Some columns abbreviated "BESCHW" for Beschwerde need a mapping to work with the prediction model.
+
+    Args:
+        path_data (str): Path to the data that contains the columns.
+        questionnaire_numbers (list): Questionnaire identifiers.
+
+    Returns:
+        translation_map (dict): Translation map for BESCHW columns.
+    """
     df_t0a, _ = load_prediction_tables(experiment_name = 'AppData_2026-01-26',
         path_data = path_data,
         questionnaire_numbers = questionnaire_numbers)
@@ -172,6 +182,16 @@ def get_translation_map_for_beschwerde_columns(path_data, questionnaire_numbers)
     return translation_map
 
 def translate_beschwerde_columns(df,path_data, questionnaire_numbers):
+    """
+    Some multiple choice columns abbreviated "BESCHW" for Beschwerde need a translation into the separate response options in order to work with the prediction model.
+
+    Args:
+        path_data (str): Path to the data that contains the columns.
+        questionnaire_numbers (list): Questionnaire identifiers.
+
+    Returns:
+        df (pd.DataFrame): a data frame with new columns
+    """
     translation_map = get_translation_map_for_beschwerde_columns(path_data, questionnaire_numbers)
     llb = df.columns
     
@@ -397,6 +417,22 @@ def prepare_dag_model_df(df, df_eligible,eligible_col, dag_model,split_col_names
     return df_model
 
 def return_nvf_for_eval_metrics(model_dict,df_orig,eval_var,met_list):
+    """
+    Compute predictions and metrics for new care form (NVF) data.
+
+    Args:
+        model_dict (dict): Model dictionary
+        df_orig (pd.DataFrame): Original NVF data.
+        eval_var (str): The target variable.
+        met_list (List): List of metrics to compute
+
+    Returns:
+        Tuple:
+        nvf_dict (dict): The model dictionary updated by nvf predictions
+        metrics (pd.DataFrame): evaluation metrics such as Brier Score
+        class_metrics (pd.DataFrame): classification metrics such as sensitivity
+        df (pd.DataFrame): the original input data frame 
+    """
     df = df_orig.copy()
     model = model_dict[list(model_dict.keys())[0]]['model']
     nvf_probs_1 = model.predict_proba(df[model.coef_.index].values)[:, 1]
@@ -417,6 +453,15 @@ def return_nvf_for_eval_metrics(model_dict,df_orig,eval_var,met_list):
     return nvf_dict, metrics, class_metrics,df
 
 def prep_nvf_diagnosis_df(df):
+    """
+    Prepare the new care form (NVF) data for compatibility with model predictions.
+
+    Args:
+        df (pd.DataFrame): NVF data.
+
+    Returns:
+        df (pd.DataFrame): processed data frame 
+    """
     dfe = df.filter(regex="pseudonym|DIAG.80").copy()
     
     dfe.columns = ['_'.join(col).strip() for col in dfe.columns.values]
@@ -440,6 +485,22 @@ def prep_nvf_diagnosis_df(df):
     return dfe
 
 def return_literature_nvf_results(basis_dict, model, model_name,eval_var, MET_LIST,df_t0b_literature, df_eval_var,update_dict_name):
+    """
+    Function that computes metrics for models found in the literature (Fauconnier et al. or Ashrafi et al.) to apply to new care form (NVF) data.
+
+    Args:
+        basis_dict (pd.DataFrame): prepared dict to be updated with predictions.
+        model (model): the Model that will be applied.
+        model_name (str): name of the model.
+        eval_var (str): target variable.
+        MET_LIST (List): list of evaluation metrics
+        df_t0b_literature (pd.DataFrame): data frame in suitable format for literature model
+        df_eval_var (pd.DataFrame): NVF data
+        update_dict_name (str): name for the new model dict containing the results
+
+    Returns:
+        df (pd.DataFrame): processed data frame 
+    """
     literature_dict = dict()
     literature_dict["literature_dict"] = basis_dict[list(basis_dict.keys())[0]].copy()
     
@@ -468,6 +529,9 @@ def return_literature_nvf_results(basis_dict, model, model_name,eval_var, MET_LI
     return nvf_dict_literature,nvf_metrics_literature, nvf_class_metrics_literature,df_application_literature
 
 class AshrafiLogRegModelNew(LogRegModel, BaseEstimator, ClassifierMixin):
+    """
+   Class for Ashrafi et al.'s prediction model.
+    """
 
     def __init__(self, fit_intercept=False):
         coeffs = or_to_coeff("../../evaluate_existing_models/prediction/papermodels/ashrafi_or.csv")
@@ -505,7 +569,9 @@ class AshrafiLogRegModelNew(LogRegModel, BaseEstimator, ClassifierMixin):
 
 
 class FauconnierLogRegModelNew(LogRegModel, BaseEstimator, ClassifierMixin):
-
+    """
+   Class for Fauconnier et al.'s prediction model.
+    """
     def __init__(self, fit_intercept=True):
 
         intercept = -7.11592

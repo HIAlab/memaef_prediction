@@ -43,6 +43,7 @@ def find_files(pwd: str) -> dict:
 
 
 def create_folder(path: str) -> str:
+    """ Create a new folder in the given path."""
     if not(os.path.exists(path)):
         if "/" in path:
             _ = create_folder("/".join(path.split("/")[:-1]))

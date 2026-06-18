@@ -7,6 +7,7 @@ from scipy.stats import chi2_contingency
 from dateutil.relativedelta import relativedelta
 
 def find_project_root(marker=".git"):
+    """ Find root dir path """
     path = Path.cwd()
     for parent in [path] + list(path.parents):
         if (parent / marker).exists():
