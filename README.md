@@ -14,32 +14,32 @@ In it, there are several subdirectories:
 - `data` for local data storage
 - `notebooks` for data preprocessing, descriptive analysis, model development, evaluation and application to the data of the new care form within memaf.
 
-memaf_prediction
-└── README.md
-└── .gitignore
-└── develop_prediction_model
-    ├── prediction_src
-    │   ├── application_prediction
-    │   ├── calibration
-    │   ├── descriptive_analysis_kk_daten
-    │   ├── evaluate_prediction_model
-    │   ├── fit_prediction_model
-    │   ├── join_kk_data
-    │   ├── load_data
-    │   ├── prediction_pipeline
-    │   └── utils
-    ├── notebooks
-    │   ├── 00_Join_KK_Daten
-    │   ├── 01_Descriptive_Analysis
-    │   ├── 02_Fit_DAG
-    │   ├── 03_Calibration
-    │   ├── 04_Evaluation
-    │   └── 05_Application_to_NVF
-    ├── models
-    └── data
-        ├── raw
-        └── processed
-        └── results
+memaf_prediction  
+└── README.md  
+└── .gitignore  
+└── develop_prediction_model  
+    ├── prediction_src  
+    │   ├── application_prediction  
+    │   ├── calibration  
+    │   ├── descriptive_analysis_kk_daten  
+    │   ├── evaluate_prediction_model  
+    │   ├── fit_prediction_model  
+    │   ├── join_kk_data  
+    │   ├── load_data  
+    │   ├── prediction_pipeline  
+    │   └── utils  
+    ├── notebooks  
+    │   ├── 00_Join_KK_Daten  
+    │   ├── 01_Descriptive_Analysis  
+    │   ├── 02_Fit_DAG  
+    │   ├── 03_Calibration  
+    │   ├── 04_Evaluation  
+    │   └── 05_Application_to_NVF  
+    ├── models  
+    └── data  
+        ├── raw  
+        └── processed  
+        └── results  
 
 
 
