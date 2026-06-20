@@ -1,7 +1,7 @@
 # memaef_prediction
 
 ## Overview
-This repository contains code for the development of a prediction model for endometriosis in girls and young women with menstrual pain. This repository is part of the memaf Project ([visit website](https://hpi.de/lippert/projects/memaef.html)). 
+This repository contains code for the development and evaluation of a prediction model for endometriosis in girls and young women with menstrual pain. This repository is part of the MeMäF Project ([visit website](https://innovationsfonds.g-ba.de/projekte/memaef.504)). 
 
 
 ## Structure
@@ -12,7 +12,7 @@ The repository currently contains one code area:
 In it, there are several subdirectories:  
 - `prediction_src` for functionalities
 - `data` for local data storage
-- `notebooks` for data preprocessing, descriptive analysis, model development, evaluation and application to the data of the new care form within memaf.
+- `notebooks` for data preprocessing, descriptive analysis, model development, evaluation and application to the data of the new care form within MeMäF.
 
 memaf_prediction  
 └── README.md  
@@ -44,4 +44,4 @@ memaf_prediction
 
 
 ## How to run
-Make sure to store your data in tabular format in the `data` subdirectory. The Notebooks are numbered and can be run in sequential order. Models should be saved to the `models` folder.
+Make sure to store your data in tabular format in the `data` subdirectory. The notebooks are numbered and can be run in sequential order. Models should be saved to the `models` folder.
