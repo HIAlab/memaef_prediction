@@ -5,7 +5,7 @@ This repository contains code for the development and evaluation of a prediction
 
 
 ## Structure
-The repository currently contains one code area:
+The repository contains one code area:
 
 - `develop_prediction_model`
 
