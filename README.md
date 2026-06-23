@@ -44,4 +44,6 @@ memaf_prediction
 
 
 ## How to run
-Make sure to store your data in tabular format in the `data` subdirectory. The notebooks are numbered and can be run in sequential order. Models should be saved to the `models` folder.
+The  `data` subdirectory is empty - make sure to store your data here in tabular format. Also, the `models` folder is empty - here the models should be saved.
+
+The notebooks are numbered and can be run in sequential order. 
