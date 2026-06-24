@@ -49,4 +49,4 @@ memaf_prediction
 ## How to run
 The  `data` subdirectory is empty - make sure to store your data here in tabular format. Also, the `models` folder is empty - here the models should be saved.
 
-The notebooks are numbered and can be run in sequential order. 
+The notebooks are numbered and can be run in sequential order. The final model from our work will be "DAG_model_youden_final".
