@@ -3,8 +3,8 @@ from sklearn.metrics import roc_auc_score, brier_score_loss
 from evaluate_prediction_model import calibration_intercept_slope
 
 TARGET_COLUMN = "endo"#"no_adeno"
-TARGET_COLUMN2 = "all_endos"
-TARGET_COLUMN3 = "only_adeno"
+TARGET_COLUMN_ALL_ENDOS = "all_endos"
+TARGET_COLUMN_ONLY_ADENO = "only_adeno"
 THRESHOLD = 0.5
 SPLIT_SIZE = 0.7
 N_FOLDS = 5
@@ -166,14 +166,20 @@ NVF_CODE_TO_LABEL = CODE_TO_LABEL | NVF_CODE_TO_LABEL
 NVF_GROUP_COLS = list(pd.Series(NVF_CODE_TO_LABEL.values()).unique())
 NVF_GROUP_COLS = NVF_GROUP_COLS + GROUP_COLS
 
-MENS_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN2,TARGET_COLUMN3] + MENS_COLS
-GROUP_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN2,TARGET_COLUMN3] + GROUP_COLS
-IND_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN2,TARGET_COLUMN3] + IND_COLS
-NVF_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN2,TARGET_COLUMN3] + NVF_GROUP_COLS
+MENS_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN_ALL_ENDOS,TARGET_COLUMN_ONLY_ADENO] + MENS_COLS
+GROUP_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN_ALL_ENDOS,TARGET_COLUMN_ONLY_ADENO] + GROUP_COLS
+IND_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN_ALL_ENDOS,TARGET_COLUMN_ONLY_ADENO] + IND_COLS
+NVF_MODEL_COLS = ["VersID","code",TARGET_COLUMN,TARGET_COLUMN_ALL_ENDOS,TARGET_COLUMN_ONLY_ADENO] + NVF_GROUP_COLS
 
 MET_LIST = [
     (roc_auc_score, "AUC"),
     (brier_score_loss, "Brier Score Loss"),
     (calibration_intercept_slope, "Calibration Intercept"),
     (calibration_intercept_slope, "Calibration Slope")
+]
+
+CALIBRATION_MET_LIST = [
+    (cutoff_fpr_constraint, "Constrained FPR Cutoff"),
+    (cutoff_max_ppv, "Max PPV Cutoff"),
+    (cutoff_youden, "Youden Cutoff"),
 ]
