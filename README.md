@@ -14,9 +14,12 @@ In it, there are several subdirectories:
 - `data` for local data storage
 - `notebooks` for data preprocessing, descriptive analysis, model development, evaluation and application to the data of the new care form within MeMäF.
 
+In the `params.py` file, several mapping dictionaries between EBM and ICD-10 codes and predictor names for different models and different predictor sets are stored, as well as lists of computable calibration and evaluation metrics.
+
 memaf_prediction  
 └── README.md  
 └── .gitignore  
+└── params 
 └── develop_prediction_model  
     ├── prediction_src  
     │   ├── application_prediction  
