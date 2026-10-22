@@ -95,4 +95,4 @@ def calc_eval_metrics(models_dict: dict, met_list: list) -> pd.DataFrame:
 
     metric_df = pd.DataFrame(metrics).set_index('Model')
 
-    return metric_df.round(2)
+    return metric_df.round(3)
